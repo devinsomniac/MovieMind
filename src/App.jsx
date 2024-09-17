@@ -1,50 +1,34 @@
-import React, { useState } from 'react'
-import bg from './assets/bg.jpg'
+import React from "react";
+import bg from "./assets/bg.jpg";
+import { useState } from "react";
+import Search from "./Components/Search";
+import SearchButton from "./Components/SearchButton";
+import MyCard from "./Components/MyCard";
 
 const App = () => {
-  const [name,setName] = useState("")
-  const [greeting,setGreeting] = useState("")
-  const handleChange = (e) => {
-      setName(e.target.value)
-  }
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-        const response = await fetch('http://localhost:5000/greet', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name }),
-        });
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
 
-        const data = await response.json();
-        setGreeting(data.greeting);
-    } catch (error) {
-        console.error('There was a problem with the fetch operation:', error);
-    }
-};
   return (
-    <div className='flex justify-center items-center App h-screen' style={{backgroundImage:`url(${bg})`, backgroundRepeat:"repeat" , backgroundSize:"contain"}}>
-      <div className='flex flex-col text-center justify-center items-center'>
-      <input
-      value={name}
-      onChange={handleChange}
-      />
-      <button
-      onClick={handleSubmit} 
-      className='bg-black text-white rounded-lg w-16'>
-        Submit
-      </button>
-      <h1>{greeting}</h1>
+    <div className=" flex flex-col justify-center items-center">
+      <div className="form py-5 my-10 h-10  flex flex-col items-center sm:flex-row">
+        <Search />
+        <SearchButton />
       </div>
-      
-    </div>
-  )
-}
+      <div className="my-10 recommendation flex flex-1 flex-wrap justify-center items-center">
+        <MyCard/>
+        <MyCard/>
+        <MyCard/>
+        <MyCard/>
+        <MyCard/>
+        <MyCard/>
+        <MyCard/>
+        <MyCard/>
+        <MyCard/>
 
-export default App
+
+      </div>
+    </div>
+  );
+};
+
+export default App;
